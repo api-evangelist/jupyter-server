@@ -1,37 +1,42 @@
-# Agrio (agrio)
-With our APIs, you can access data on weather patterns, pest and disease predictions, and more to build a more accurate crop advisory tool.
+# Jupyter Server (jupyter-server)
+These pages target people writing Jupyter Web applications and server extensions, or people who need to dive deeper in Jupyter Servers REST API and configuration system. 
 
-**URL:** [Visit APIs.json URL](https://example.com/apis/agriculture-api-agrio.yml)
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/jupyter-server/refs/heads/main/apis.yml)
 
 ## Scope
 
+- **Type:** Index 
+- **Position:** Consumer 
+- **Access:** 3rd-Party 
 
 ## Tags:
 
- - Agriculture
+ - Compute, Workbooks, Portable
 
 ## Timestamps
 
-- **Created:** 2024-07-11 
-- **Modified:** 2024-11-10 
+- **Created:** 2025-02-06 
+- **Modified:** 2025-02-09 
 
 ## APIs
 
-### Agrio
-With our APIs, you can access data on weather patterns, pest and disease predictions, and more to build a more accurate crop advisory tool.  
+### Jupyter Server
+These pages target people writing Jupyter Web applications and server extensions, or people who need to dive deeper in Jupyter Servers REST API and configuration system. 
 
-**Human URL:** [https://agrio.app/Agriculture-API/](https://agrio.app/Agriculture-API/)
+**Human URL:** [ https://jupyter-server.readthedocs.io/en/latest/developers/index.html]( https://jupyter-server.readthedocs.io/en/latest/developers/index.html)
 
 
+#### Tags:
+
+ - API
 
 #### Properties
 
-- [Documentation](https://agrio.app/Agriculture-API/)
-- [OpenAPI](openapi/agrio-openapi-original.yml)
+- [Documentation]( https://jupyter-server.readthedocs.io/en/latest/developers/index.html)
 
 ## Maintainers
 
-**FN:** API Evangelist
+**FN:** Kin Lane
 
 **Email:** info@apievangelist.com
 
