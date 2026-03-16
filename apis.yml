@@ -23,7 +23,7 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-02-06'
-modified: '2025-02-09'
+modified: '2026-03-16'
 position: Consumer
 description: >-
   These pages target people writing Jupyter Web applications and server
@@ -31,5 +31,5 @@ description: >-
   configuration system. 
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
