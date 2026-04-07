@@ -11,9 +11,9 @@ apis:
       - url: ' https://jupyter-server.readthedocs.io/en/latest/developers/index.html'
         type: Documentation
     description: >-
-      These pages target people writing Jupyter Web applications and server
-      extensions, or people who need to dive deeper in Jupyter Server’s REST API
-      and configuration system. 
+      These pages target people writing Jupyter Web applications and server extensions,
+      or people who need to dive deeper in Jupyter Server’s REST API and configuration
+      system.
 name: Jupyter Server
 tags:
   - Compute
@@ -26,9 +26,9 @@ created: '2025-02-06'
 modified: '2026-03-16'
 position: Consumer
 description: >-
-  These pages target people writing Jupyter Web applications and server
-  extensions, or people who need to dive deeper in Jupyter Server’s REST API and
-  configuration system. 
+  These pages target people writing Jupyter Web applications and server extensions,
+  or people who need to dive deeper in Jupyter Server’s REST API and configuration
+  system.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
