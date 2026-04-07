@@ -4,8 +4,7 @@ url: >-
 apis:
   - aid: jupyter-server:jupyter-server
     name: Jupyter Server
-    tags:
-      - API
+    tags: []
     humanURL: ' https://jupyter-server.readthedocs.io/en/latest/developers/index.html'
     properties:
       - url: ' https://jupyter-server.readthedocs.io/en/latest/developers/index.html'
@@ -17,8 +16,8 @@ apis:
 name: Jupyter Server
 tags:
   - Compute
-  - Workbooks
   - Portable
+  - Workbooks
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
