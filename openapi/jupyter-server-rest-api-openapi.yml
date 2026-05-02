@@ -1,0 +1,507 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST API
+  description: >-
+    Core REST API for Jupyter Server, the backend that powers Jupyter Notebook,
+    JupyterLab, and other Jupyter web applications. Provides endpoints for
+    managing kernels, sessions, contents (notebooks and files), terminals,
+    kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+  - url: http://localhost:8888/api
+    description: Local Jupyter Server
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+tags:
+  - name: General
+    description: Server information, identity, and status.
+  - name: Contents
+    description: Notebook and file management operations.
+  - name: Checkpoints
+    description: File checkpoint (snapshot) management.
+  - name: Kernels
+    description: Kernel lifecycle management.
+  - name: Kernelspecs
+    description: Available kernel specifications.
+  - name: Sessions
+    description: Notebook-kernel session management.
+  - name: Terminals
+    description: Terminal session management.
+  - name: Config
+    description: Server configuration sections.
+paths:
+  /:
+    get:
+      operationId: getApiInfo
+      summary: Jupyter Server Get API info
+      description: Returns the API version and other server information.
+      tags:
+        - General
+      responses:
+        '200':
+          description: Server API information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+  /me:
+    get:
+      operationId: getCurrentUser
+      summary: Jupyter Server Get current user
+      description: Returns identity information for the authenticated user.
+      tags:
+        - General
+      responses:
+        '200':
+          description: Identity model for the current user.
+  /status:
+    get:
+      operationId: getServerStatus
+      summary: Jupyter Server Get server status
+      description: Returns the current server activity, including connections, kernels, and last activity timestamp.
+      tags:
+        - General
+      responses:
+        '200':
+          description: Server activity model.
+  /spec.yaml:
+    get:
+      operationId: getApiSpec
+      summary: Jupyter Server Get API specification
+      description: Returns the OpenAPI specification document served by the Jupyter Server.
+      tags:
+        - General
+      responses:
+        '200':
+          description: OpenAPI specification document.
+          content:
+            application/yaml:
+              schema:
+                type: string
+  /contents/{path}:
+    get:
+      operationId: getContents
+      summary: Jupyter Server Get contents
+      description: Retrieves a file or directory at the given path.
+      tags:
+        - Contents
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [file, directory, notebook]
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [text, base64]
+        - name: content
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Contents model for the requested path.
+    post:
+      operationId: createContents
+      summary: Jupyter Server Create contents
+      description: Creates a new file or directory at the given path.
+      tags:
+        - Contents
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Contents model for the newly created item.
+    patch:
+      operationId: renameContents
+      summary: Jupyter Server Rename contents
+      description: Renames or moves a file or directory at the given path.
+      tags:
+        - Contents
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Contents model for the renamed item.
+    put:
+      operationId: saveContents
+      summary: Jupyter Server Save contents
+      description: Saves or uploads a file or notebook to the given path.
+      tags:
+        - Contents
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Contents model for the saved item.
+        '201':
+          description: Newly created contents model.
+    delete:
+      operationId: deleteContents
+      summary: Jupyter Server Delete contents
+      description: Deletes a file or directory at the given path.
+      tags:
+        - Contents
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Contents deleted.
+  /contents/{path}/checkpoints:
+    get:
+      operationId: listCheckpoints
+      summary: Jupyter Server List checkpoints
+      description: Returns the list of checkpoints for a file.
+      tags:
+        - Checkpoints
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of checkpoint objects.
+    post:
+      operationId: createCheckpoint
+      summary: Jupyter Server Create checkpoint
+      description: Creates a new checkpoint for the file at path.
+      tags:
+        - Checkpoints
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Newly created checkpoint object.
+  /contents/{path}/checkpoints/{checkpoint_id}:
+    post:
+      operationId: restoreCheckpoint
+      summary: Jupyter Server Restore checkpoint
+      description: Restores the file from the named checkpoint.
+      tags:
+        - Checkpoints
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: checkpoint_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Checkpoint restored.
+    delete:
+      operationId: deleteCheckpoint
+      summary: Jupyter Server Delete checkpoint
+      description: Deletes the checkpoint with the given ID.
+      tags:
+        - Checkpoints
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: checkpoint_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Checkpoint deleted.
+  /sessions:
+    get:
+      operationId: listSessions
+      summary: Jupyter Server List sessions
+      description: Returns the list of running sessions.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: List of session objects.
+    post:
+      operationId: createSession
+      summary: Jupyter Server Create session
+      description: Creates a new session, optionally starting a new kernel.
+      tags:
+        - Sessions
+      responses:
+        '201':
+          description: Newly created session object.
+  /sessions/{session}:
+    get:
+      operationId: getSession
+      summary: Jupyter Server Get session
+      description: Retrieves the session by ID.
+      tags:
+        - Sessions
+      parameters:
+        - name: session
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Session object.
+    patch:
+      operationId: updateSession
+      summary: Jupyter Server Update session
+      description: Updates the session, for example to change the path or kernel.
+      tags:
+        - Sessions
+      parameters:
+        - name: session
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated session object.
+    delete:
+      operationId: deleteSession
+      summary: Jupyter Server Delete session
+      description: Deletes the session and shuts down its kernel.
+      tags:
+        - Sessions
+      parameters:
+        - name: session
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Session deleted.
+  /kernels:
+    get:
+      operationId: listKernels
+      summary: Jupyter Server List kernels
+      description: Returns the list of running kernels.
+      tags:
+        - Kernels
+      responses:
+        '200':
+          description: List of kernel objects.
+    post:
+      operationId: startKernel
+      summary: Jupyter Server Start kernel
+      description: Starts a new kernel.
+      tags:
+        - Kernels
+      responses:
+        '201':
+          description: Newly started kernel object.
+  /kernels/{kernel_id}:
+    get:
+      operationId: getKernel
+      summary: Jupyter Server Get kernel
+      description: Retrieves the kernel model by ID.
+      tags:
+        - Kernels
+      parameters:
+        - name: kernel_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Kernel object.
+    delete:
+      operationId: shutdownKernel
+      summary: Jupyter Server Shutdown kernel
+      description: Shuts down the kernel.
+      tags:
+        - Kernels
+      parameters:
+        - name: kernel_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Kernel shut down.
+  /kernels/{kernel_id}/interrupt:
+    post:
+      operationId: interruptKernel
+      summary: Jupyter Server Interrupt kernel
+      description: Sends an interrupt signal to the kernel.
+      tags:
+        - Kernels
+      parameters:
+        - name: kernel_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Kernel interrupted.
+  /kernels/{kernel_id}/restart:
+    post:
+      operationId: restartKernel
+      summary: Jupyter Server Restart kernel
+      description: Restarts the kernel.
+      tags:
+        - Kernels
+      parameters:
+        - name: kernel_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Restarted kernel object.
+  /kernelspecs:
+    get:
+      operationId: listKernelspecs
+      summary: Jupyter Server List kernel specifications
+      description: Returns the available kernel specifications.
+      tags:
+        - Kernelspecs
+      responses:
+        '200':
+          description: Kernelspecs object including the default kernel.
+  /config/{section_name}:
+    get:
+      operationId: getConfig
+      summary: Jupyter Server Get config section
+      description: Retrieves the configuration data for a named section.
+      tags:
+        - Config
+      parameters:
+        - name: section_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Configuration data for the section.
+    patch:
+      operationId: updateConfig
+      summary: Jupyter Server Update config section
+      description: Updates the configuration data for a named section.
+      tags:
+        - Config
+      parameters:
+        - name: section_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated configuration data.
+  /terminals:
+    get:
+      operationId: listTerminals
+      summary: Jupyter Server List terminals
+      description: Returns the list of running terminal sessions.
+      tags:
+        - Terminals
+      responses:
+        '200':
+          description: List of terminal objects.
+    post:
+      operationId: createTerminal
+      summary: Jupyter Server Create terminal
+      description: Starts a new terminal session.
+      tags:
+        - Terminals
+      responses:
+        '200':
+          description: Newly created terminal object.
+  /terminals/{terminal_id}:
+    get:
+      operationId: getTerminal
+      summary: Jupyter Server Get terminal
+      description: Retrieves the terminal session by name.
+      tags:
+        - Terminals
+      parameters:
+        - name: terminal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Terminal object.
+    delete:
+      operationId: deleteTerminal
+      summary: Jupyter Server Delete terminal
+      description: Deletes the terminal session.
+      tags:
+        - Terminals
+      parameters:
+        - name: terminal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Terminal deleted.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+security:
+  - token: []

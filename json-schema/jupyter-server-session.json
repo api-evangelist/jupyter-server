@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/jupyter-server/main/json-schema/jupyter-server-session.json",
+  "title": "Jupyter Server Session",
+  "description": "Schema for a Jupyter Server session, which binds a notebook or file to a kernel.",
+  "type": "object",
+  "required": ["id", "kernel"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique session identifier (UUID)."
+    },
+    "path": {
+      "type": "string",
+      "description": "Path to the document associated with the session."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the session."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the session (for example notebook, console)."
+    },
+    "kernel": {
+      "$ref": "jupyter-server-kernel.json"
+    }
+  }
+}

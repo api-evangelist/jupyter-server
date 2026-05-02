@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@vocab": "https://jupyter-server.readthedocs.io/vocab#",
+    "schema": "https://schema.org/",
+    "JupyterServer": "schema:SoftwareApplication",
+    "Kernel": "https://jupyter-server.readthedocs.io/vocab#Kernel",
+    "Session": "https://jupyter-server.readthedocs.io/vocab#Session",
+    "Contents": "https://jupyter-server.readthedocs.io/vocab#Contents",
+    "Notebook": "https://jupyter-server.readthedocs.io/vocab#Notebook",
+    "Terminal": "https://jupyter-server.readthedocs.io/vocab#Terminal",
+    "name": "schema:name",
+    "description": "schema:description",
+    "version": "schema:version",
+    "path": "schema:contentLocation",
+    "lastActivity": "schema:dateModified",
+    "executionState": "https://jupyter-server.readthedocs.io/vocab#executionState",
+    "connections": "https://jupyter-server.readthedocs.io/vocab#connections",
+    "kernel": "https://jupyter-server.readthedocs.io/vocab#kernel"
+  }
+}
