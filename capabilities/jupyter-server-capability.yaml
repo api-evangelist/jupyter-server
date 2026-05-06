@@ -1,0 +1,1280 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Jupyter Server REST API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web
+    applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications,
+    configuration, and server status.
+  tags:
+  - Jupyter
+  - Server
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: jupyter-server
+    baseUri: http://localhost:8888/api
+    description: Jupyter Server REST API HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: Authorization
+      value: '{{JUPYTER_SERVER_TOKEN}}'
+    resources:
+    - name: resource
+      path: /
+      operations:
+      - name: getapiinfo
+        method: GET
+        description: Jupyter Server Get API info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: me
+      path: /me
+      operations:
+      - name: getcurrentuser
+        method: GET
+        description: Jupyter Server Get current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: status
+      path: /status
+      operations:
+      - name: getserverstatus
+        method: GET
+        description: Jupyter Server Get server status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: spec-yaml
+      path: /spec.yaml
+      operations:
+      - name: getapispec
+        method: GET
+        description: Jupyter Server Get API specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: contents-path
+      path: /contents/{path}
+      operations:
+      - name: getcontents
+        method: GET
+        description: Jupyter Server Get contents
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+        - name: format
+          in: query
+          type: string
+        - name: content
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcontents
+        method: POST
+        description: Jupyter Server Create contents
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: renamecontents
+        method: PATCH
+        description: Jupyter Server Rename contents
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: savecontents
+        method: PUT
+        description: Jupyter Server Save contents
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecontents
+        method: DELETE
+        description: Jupyter Server Delete contents
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: contents-path-checkpoints
+      path: /contents/{path}/checkpoints
+      operations:
+      - name: listcheckpoints
+        method: GET
+        description: Jupyter Server List checkpoints
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcheckpoint
+        method: POST
+        description: Jupyter Server Create checkpoint
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: contents-path-checkpoints-checkpoint-id
+      path: /contents/{path}/checkpoints/{checkpoint_id}
+      operations:
+      - name: restorecheckpoint
+        method: POST
+        description: Jupyter Server Restore checkpoint
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: checkpoint_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecheckpoint
+        method: DELETE
+        description: Jupyter Server Delete checkpoint
+        inputParameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: checkpoint_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sessions
+      path: /sessions
+      operations:
+      - name: listsessions
+        method: GET
+        description: Jupyter Server List sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createsession
+        method: POST
+        description: Jupyter Server Create session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sessions-session
+      path: /sessions/{session}
+      operations:
+      - name: getsession
+        method: GET
+        description: Jupyter Server Get session
+        inputParameters:
+        - name: session
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesession
+        method: PATCH
+        description: Jupyter Server Update session
+        inputParameters:
+        - name: session
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletesession
+        method: DELETE
+        description: Jupyter Server Delete session
+        inputParameters:
+        - name: session
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernels
+      path: /kernels
+      operations:
+      - name: listkernels
+        method: GET
+        description: Jupyter Server List kernels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: startkernel
+        method: POST
+        description: Jupyter Server Start kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernels-kernel-id
+      path: /kernels/{kernel_id}
+      operations:
+      - name: getkernel
+        method: GET
+        description: Jupyter Server Get kernel
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: shutdownkernel
+        method: DELETE
+        description: Jupyter Server Shutdown kernel
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernels-kernel-id-interrupt
+      path: /kernels/{kernel_id}/interrupt
+      operations:
+      - name: interruptkernel
+        method: POST
+        description: Jupyter Server Interrupt kernel
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernels-kernel-id-restart
+      path: /kernels/{kernel_id}/restart
+      operations:
+      - name: restartkernel
+        method: POST
+        description: Jupyter Server Restart kernel
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernelspecs
+      path: /kernelspecs
+      operations:
+      - name: listkernelspecs
+        method: GET
+        description: Jupyter Server List kernel specifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: config-section-name
+      path: /config/{section_name}
+      operations:
+      - name: getconfig
+        method: GET
+        description: Jupyter Server Get config section
+        inputParameters:
+        - name: section_name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateconfig
+        method: PATCH
+        description: Jupyter Server Update config section
+        inputParameters:
+        - name: section_name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: terminals
+      path: /terminals
+      operations:
+      - name: listterminals
+        method: GET
+        description: Jupyter Server List terminals
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createterminal
+        method: POST
+        description: Jupyter Server Create terminal
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: terminals-terminal-id
+      path: /terminals/{terminal_id}
+      operations:
+      - name: getterminal
+        method: GET
+        description: Jupyter Server Get terminal
+        inputParameters:
+        - name: terminal_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteterminal
+        method: DELETE
+        description: Jupyter Server Delete terminal
+        inputParameters:
+        - name: terminal_id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: jupyter-server-rest
+    description: REST adapter for Jupyter Server REST API.
+    resources:
+    - path: /
+      name: getapiinfo
+      operations:
+      - method: GET
+        name: getapiinfo
+        description: Jupyter Server Get API info
+        call: jupyter-server.getapiinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /me
+      name: getcurrentuser
+      operations:
+      - method: GET
+        name: getcurrentuser
+        description: Jupyter Server Get current user
+        call: jupyter-server.getcurrentuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /status
+      name: getserverstatus
+      operations:
+      - method: GET
+        name: getserverstatus
+        description: Jupyter Server Get server status
+        call: jupyter-server.getserverstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /spec.yaml
+      name: getapispec
+      operations:
+      - method: GET
+        name: getapispec
+        description: Jupyter Server Get API specification
+        call: jupyter-server.getapispec
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}
+      name: getcontents
+      operations:
+      - method: GET
+        name: getcontents
+        description: Jupyter Server Get contents
+        call: jupyter-server.getcontents
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}
+      name: createcontents
+      operations:
+      - method: POST
+        name: createcontents
+        description: Jupyter Server Create contents
+        call: jupyter-server.createcontents
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}
+      name: renamecontents
+      operations:
+      - method: PATCH
+        name: renamecontents
+        description: Jupyter Server Rename contents
+        call: jupyter-server.renamecontents
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}
+      name: savecontents
+      operations:
+      - method: PUT
+        name: savecontents
+        description: Jupyter Server Save contents
+        call: jupyter-server.savecontents
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}
+      name: deletecontents
+      operations:
+      - method: DELETE
+        name: deletecontents
+        description: Jupyter Server Delete contents
+        call: jupyter-server.deletecontents
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}/checkpoints
+      name: listcheckpoints
+      operations:
+      - method: GET
+        name: listcheckpoints
+        description: Jupyter Server List checkpoints
+        call: jupyter-server.listcheckpoints
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}/checkpoints
+      name: createcheckpoint
+      operations:
+      - method: POST
+        name: createcheckpoint
+        description: Jupyter Server Create checkpoint
+        call: jupyter-server.createcheckpoint
+        with:
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}/checkpoints/{checkpoint_id}
+      name: restorecheckpoint
+      operations:
+      - method: POST
+        name: restorecheckpoint
+        description: Jupyter Server Restore checkpoint
+        call: jupyter-server.restorecheckpoint
+        with:
+          path: rest.path
+          checkpoint_id: rest.checkpoint_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /contents/{path}/checkpoints/{checkpoint_id}
+      name: deletecheckpoint
+      operations:
+      - method: DELETE
+        name: deletecheckpoint
+        description: Jupyter Server Delete checkpoint
+        call: jupyter-server.deletecheckpoint
+        with:
+          path: rest.path
+          checkpoint_id: rest.checkpoint_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sessions
+      name: listsessions
+      operations:
+      - method: GET
+        name: listsessions
+        description: Jupyter Server List sessions
+        call: jupyter-server.listsessions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sessions
+      name: createsession
+      operations:
+      - method: POST
+        name: createsession
+        description: Jupyter Server Create session
+        call: jupyter-server.createsession
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sessions/{session}
+      name: getsession
+      operations:
+      - method: GET
+        name: getsession
+        description: Jupyter Server Get session
+        call: jupyter-server.getsession
+        with:
+          session: rest.session
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sessions/{session}
+      name: updatesession
+      operations:
+      - method: PATCH
+        name: updatesession
+        description: Jupyter Server Update session
+        call: jupyter-server.updatesession
+        with:
+          session: rest.session
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sessions/{session}
+      name: deletesession
+      operations:
+      - method: DELETE
+        name: deletesession
+        description: Jupyter Server Delete session
+        call: jupyter-server.deletesession
+        with:
+          session: rest.session
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels
+      name: listkernels
+      operations:
+      - method: GET
+        name: listkernels
+        description: Jupyter Server List kernels
+        call: jupyter-server.listkernels
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels
+      name: startkernel
+      operations:
+      - method: POST
+        name: startkernel
+        description: Jupyter Server Start kernel
+        call: jupyter-server.startkernel
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels/{kernel_id}
+      name: getkernel
+      operations:
+      - method: GET
+        name: getkernel
+        description: Jupyter Server Get kernel
+        call: jupyter-server.getkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels/{kernel_id}
+      name: shutdownkernel
+      operations:
+      - method: DELETE
+        name: shutdownkernel
+        description: Jupyter Server Shutdown kernel
+        call: jupyter-server.shutdownkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels/{kernel_id}/interrupt
+      name: interruptkernel
+      operations:
+      - method: POST
+        name: interruptkernel
+        description: Jupyter Server Interrupt kernel
+        call: jupyter-server.interruptkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernels/{kernel_id}/restart
+      name: restartkernel
+      operations:
+      - method: POST
+        name: restartkernel
+        description: Jupyter Server Restart kernel
+        call: jupyter-server.restartkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kernelspecs
+      name: listkernelspecs
+      operations:
+      - method: GET
+        name: listkernelspecs
+        description: Jupyter Server List kernel specifications
+        call: jupyter-server.listkernelspecs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /config/{section_name}
+      name: getconfig
+      operations:
+      - method: GET
+        name: getconfig
+        description: Jupyter Server Get config section
+        call: jupyter-server.getconfig
+        with:
+          section_name: rest.section_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /config/{section_name}
+      name: updateconfig
+      operations:
+      - method: PATCH
+        name: updateconfig
+        description: Jupyter Server Update config section
+        call: jupyter-server.updateconfig
+        with:
+          section_name: rest.section_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /terminals
+      name: listterminals
+      operations:
+      - method: GET
+        name: listterminals
+        description: Jupyter Server List terminals
+        call: jupyter-server.listterminals
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /terminals
+      name: createterminal
+      operations:
+      - method: POST
+        name: createterminal
+        description: Jupyter Server Create terminal
+        call: jupyter-server.createterminal
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /terminals/{terminal_id}
+      name: getterminal
+      operations:
+      - method: GET
+        name: getterminal
+        description: Jupyter Server Get terminal
+        call: jupyter-server.getterminal
+        with:
+          terminal_id: rest.terminal_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /terminals/{terminal_id}
+      name: deleteterminal
+      operations:
+      - method: DELETE
+        name: deleteterminal
+        description: Jupyter Server Delete terminal
+        call: jupyter-server.deleteterminal
+        with:
+          terminal_id: rest.terminal_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: jupyter-server-mcp
+    transport: http
+    description: MCP adapter for Jupyter Server REST API for AI agent use.
+    tools:
+    - name: getapiinfo
+      description: Jupyter Server Get API info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getapiinfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcurrentuser
+      description: Jupyter Server Get current user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getcurrentuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getserverstatus
+      description: Jupyter Server Get server status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getserverstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getapispec
+      description: Jupyter Server Get API specification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getapispec
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcontents
+      description: Jupyter Server Get contents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getcontents
+      with:
+        path: tools.path
+        type: tools.type
+        format: tools.format
+        content: tools.content
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      - name: type
+        type: string
+        description: type
+      - name: format
+        type: string
+        description: format
+      - name: content
+        type: integer
+        description: content
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcontents
+      description: Jupyter Server Create contents
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.createcontents
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: renamecontents
+      description: Jupyter Server Rename contents
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.renamecontents
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: savecontents
+      description: Jupyter Server Save contents
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: jupyter-server.savecontents
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletecontents
+      description: Jupyter Server Delete contents
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jupyter-server.deletecontents
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcheckpoints
+      description: Jupyter Server List checkpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.listcheckpoints
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcheckpoint
+      description: Jupyter Server Create checkpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.createcheckpoint
+      with:
+        path: tools.path
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restorecheckpoint
+      description: Jupyter Server Restore checkpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.restorecheckpoint
+      with:
+        path: tools.path
+        checkpoint_id: tools.checkpoint_id
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      - name: checkpoint_id
+        type: string
+        description: checkpoint_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletecheckpoint
+      description: Jupyter Server Delete checkpoint
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jupyter-server.deletecheckpoint
+      with:
+        path: tools.path
+        checkpoint_id: tools.checkpoint_id
+      inputParameters:
+      - name: path
+        type: string
+        description: path
+        required: true
+      - name: checkpoint_id
+        type: string
+        description: checkpoint_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listsessions
+      description: Jupyter Server List sessions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.listsessions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createsession
+      description: Jupyter Server Create session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.createsession
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsession
+      description: Jupyter Server Get session
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getsession
+      with:
+        session: tools.session
+      inputParameters:
+      - name: session
+        type: string
+        description: session
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatesession
+      description: Jupyter Server Update session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.updatesession
+      with:
+        session: tools.session
+      inputParameters:
+      - name: session
+        type: string
+        description: session
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletesession
+      description: Jupyter Server Delete session
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jupyter-server.deletesession
+      with:
+        session: tools.session
+      inputParameters:
+      - name: session
+        type: string
+        description: session
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listkernels
+      description: Jupyter Server List kernels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.listkernels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: startkernel
+      description: Jupyter Server Start kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.startkernel
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getkernel
+      description: Jupyter Server Get kernel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getkernel
+      with:
+        kernel_id: tools.kernel_id
+      inputParameters:
+      - name: kernel_id
+        type: string
+        description: kernel_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: shutdownkernel
+      description: Jupyter Server Shutdown kernel
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jupyter-server.shutdownkernel
+      with:
+        kernel_id: tools.kernel_id
+      inputParameters:
+      - name: kernel_id
+        type: string
+        description: kernel_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: interruptkernel
+      description: Jupyter Server Interrupt kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.interruptkernel
+      with:
+        kernel_id: tools.kernel_id
+      inputParameters:
+      - name: kernel_id
+        type: string
+        description: kernel_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restartkernel
+      description: Jupyter Server Restart kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.restartkernel
+      with:
+        kernel_id: tools.kernel_id
+      inputParameters:
+      - name: kernel_id
+        type: string
+        description: kernel_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listkernelspecs
+      description: Jupyter Server List kernel specifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.listkernelspecs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getconfig
+      description: Jupyter Server Get config section
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getconfig
+      with:
+        section_name: tools.section_name
+      inputParameters:
+      - name: section_name
+        type: string
+        description: section_name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateconfig
+      description: Jupyter Server Update config section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.updateconfig
+      with:
+        section_name: tools.section_name
+      inputParameters:
+      - name: section_name
+        type: string
+        description: section_name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listterminals
+      description: Jupyter Server List terminals
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.listterminals
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createterminal
+      description: Jupyter Server Create terminal
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: jupyter-server.createterminal
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getterminal
+      description: Jupyter Server Get terminal
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: jupyter-server.getterminal
+      with:
+        terminal_id: tools.terminal_id
+      inputParameters:
+      - name: terminal_id
+        type: string
+        description: terminal_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteterminal
+      description: Jupyter Server Delete terminal
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: jupyter-server.deleteterminal
+      with:
+        terminal_id: tools.terminal_id
+      inputParameters:
+      - name: terminal_id
+        type: string
+        description: terminal_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    JUPYTER_SERVER_TOKEN: JUPYTER_SERVER_TOKEN
