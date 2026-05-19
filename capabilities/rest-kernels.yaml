@@ -1,0 +1,254 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Jupyter Server REST API — Kernels
+  description: 'Jupyter Server REST API — Kernels. 6 operations. Lead operation: Jupyter Server List kernels. Self-contained
+    Naftiko capability covering one Jupyter Server business surface.'
+  tags:
+  - Jupyter Server
+  - Kernels
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    JUPYTER_SERVER_API_KEY: JUPYTER_SERVER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-kernels
+    baseUri: http://localhost:8888/api
+    description: Jupyter Server REST API — Kernels business capability. Self-contained, no shared references.
+    resources:
+    - name: kernels
+      path: /kernels
+      operations:
+      - name: listkernels
+        method: GET
+        description: Jupyter Server List kernels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: startkernel
+        method: POST
+        description: Jupyter Server Start kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kernels-kernel_id
+      path: /kernels/{kernel_id}
+      operations:
+      - name: getkernel
+        method: GET
+        description: Jupyter Server Get kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+      - name: shutdownkernel
+        method: DELETE
+        description: Jupyter Server Shutdown kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+    - name: kernels-kernel_id-interrupt
+      path: /kernels/{kernel_id}/interrupt
+      operations:
+      - name: interruptkernel
+        method: POST
+        description: Jupyter Server Interrupt kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+    - name: kernels-kernel_id-restart
+      path: /kernels/{kernel_id}/restart
+      operations:
+      - name: restartkernel
+        method: POST
+        description: Jupyter Server Restart kernel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: kernel_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.JUPYTER_SERVER_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-kernels-rest
+    port: 8080
+    description: REST adapter for Jupyter Server REST API — Kernels. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/kernels
+      name: kernels
+      description: REST surface for kernels.
+      operations:
+      - method: GET
+        name: listkernels
+        description: Jupyter Server List kernels
+        call: rest-kernels.listkernels
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: startkernel
+        description: Jupyter Server Start kernel
+        call: rest-kernels.startkernel
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kernels/{kernel-id}
+      name: kernels-kernel-id
+      description: REST surface for kernels-kernel_id.
+      operations:
+      - method: GET
+        name: getkernel
+        description: Jupyter Server Get kernel
+        call: rest-kernels.getkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: shutdownkernel
+        description: Jupyter Server Shutdown kernel
+        call: rest-kernels.shutdownkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kernels/{kernel-id}/interrupt
+      name: kernels-kernel-id-interrupt
+      description: REST surface for kernels-kernel_id-interrupt.
+      operations:
+      - method: POST
+        name: interruptkernel
+        description: Jupyter Server Interrupt kernel
+        call: rest-kernels.interruptkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kernels/{kernel-id}/restart
+      name: kernels-kernel-id-restart
+      description: REST surface for kernels-kernel_id-restart.
+      operations:
+      - method: POST
+        name: restartkernel
+        description: Jupyter Server Restart kernel
+        call: rest-kernels.restartkernel
+        with:
+          kernel_id: rest.kernel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-kernels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Jupyter Server REST API — Kernels. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: jupyter-server-list-kernels
+      description: Jupyter Server List kernels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-kernels.listkernels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: jupyter-server-start-kernel
+      description: Jupyter Server Start kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-kernels.startkernel
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: jupyter-server-get-kernel
+      description: Jupyter Server Get kernel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-kernels.getkernel
+      with:
+        kernel_id: tools.kernel_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: jupyter-server-shutdown-kernel
+      description: Jupyter Server Shutdown kernel
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-kernels.shutdownkernel
+      with:
+        kernel_id: tools.kernel_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: jupyter-server-interrupt-kernel
+      description: Jupyter Server Interrupt kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-kernels.interruptkernel
+      with:
+        kernel_id: tools.kernel_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: jupyter-server-restart-kernel
+      description: Jupyter Server Restart kernel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-kernels.restartkernel
+      with:
+        kernel_id: tools.kernel_id
+      outputParameters:
+      - type: object
+        mapping: $.
