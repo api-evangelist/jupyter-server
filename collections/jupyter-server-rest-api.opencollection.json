@@ -1,0 +1,588 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jupyter Server REST API",
+    "version": "2.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server Get API info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/"
+          },
+          "docs": "Returns the API version and other server information."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/me"
+          },
+          "docs": "Returns identity information for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get server status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/status"
+          },
+          "docs": "Returns the current server activity, including connections, kernels, and last activity timestamp."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get API specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/spec.yaml"
+          },
+          "docs": "Returns the OpenAPI specification document served by the Jupyter Server."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server Get contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/contents/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a file or directory at the given path."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Create contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/contents/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a new file or directory at the given path."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Save contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8888/api/contents/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Saves or uploads a file or notebook to the given path."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Rename contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8888/api/contents/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Renames or moves a file or directory at the given path."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Delete contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/contents/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a file or directory at the given path."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Checkpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List checkpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/contents/:path/checkpoints",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the list of checkpoints for a file."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Create checkpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/contents/:path/checkpoints",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a new checkpoint for the file at path."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Restore checkpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/contents/:path/checkpoints/:checkpoint_id",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "checkpoint_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restores the file from the named checkpoint."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Delete checkpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/contents/:path/checkpoints/:checkpoint_id",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "checkpoint_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the checkpoint with the given ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/sessions"
+          },
+          "docs": "Returns the list of running sessions."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Create session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/sessions"
+          },
+          "docs": "Creates a new session, optionally starting a new kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the session by ID."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Update session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the session, for example to change the path or kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Delete session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the session and shuts down its kernel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kernels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List kernels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/kernels"
+          },
+          "docs": "Returns the list of running kernels."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Start kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels"
+          },
+          "docs": "Starts a new kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/kernels/:kernel_id",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the kernel model by ID."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Shutdown kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/kernels/:kernel_id",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Shuts down the kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Interrupt kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels/:kernel_id/interrupt",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Sends an interrupt signal to the kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Restart kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels/:kernel_id/restart",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restarts the kernel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kernelspecs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List kernel specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/kernelspecs"
+          },
+          "docs": "Returns the available kernel specifications."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server Get config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/config/:section_name",
+            "params": [
+              {
+                "name": "section_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration data for a named section."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Update config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8888/api/config/:section_name",
+            "params": [
+              {
+                "name": "section_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the configuration data for a named section."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Terminals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List terminals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/terminals"
+          },
+          "docs": "Returns the list of running terminal sessions."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Create terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/terminals"
+          },
+          "docs": "Starts a new terminal session."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/terminals/:terminal_id",
+            "params": [
+              {
+                "name": "terminal_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the terminal session by name."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Delete terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/terminals/:terminal_id",
+            "params": [
+              {
+                "name": "terminal_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the terminal session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
