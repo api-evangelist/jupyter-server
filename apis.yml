@@ -5,7 +5,7 @@ description: >-
   provides the core REST API for managing kernels, sessions, contents, terminals, and configuration, and it hosts the
   WebSocket endpoints used to communicate with kernels via the Jupyter messaging protocol.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Compute
   - Interactive Computing
