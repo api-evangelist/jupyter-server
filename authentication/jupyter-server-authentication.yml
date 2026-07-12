@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/jupyter-server-rest-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: token
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'Token-based authentication. Use the form: Authorization: token <token>'
+  sources:
+  - openapi/jupyter-server-rest-api-openapi.yml
+- name: xsrf
+  type: apiKey
+  in: header
+  parameter: X-XSRFToken
+  description: XSRF token required for browser-based requests.
+  sources:
+  - openapi/jupyter-server-rest-api-openapi.yml

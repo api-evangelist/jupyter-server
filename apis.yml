@@ -49,6 +49,10 @@ apis:
       - type: JSONLDContext
         url: json-ld/jupyter-server-context.jsonld
 common:
+  - type: DomainSecurity
+    url: security/jupyter-server-domain-security.yml
+  - type: Authentication
+    url: authentication/jupyter-server-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/project-jupyter
   - type: Website
@@ -65,6 +69,8 @@ common:
     url: https://discourse.jupyter.org/
   - type: Security
     url: https://jupyter.org/security
+  - url: https://blog.jupyter.org/feed
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
