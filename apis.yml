@@ -49,6 +49,8 @@ apis:
       - type: JSONLDContext
         url: json-ld/jupyter-server-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/jupyter-server-agentic-access.yml
   - type: DomainSecurity
     url: security/jupyter-server-domain-security.yml
   - type: Authentication
