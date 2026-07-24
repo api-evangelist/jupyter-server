@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints General API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: General
+  description: Server information, identity, and status.
+paths:
+  /:
+    get:
+      operationId: getApiInfo
+      summary: Jupyter Server Get API info
+      description: Returns the API version and other server information.
+      tags:
+      - General
+      responses:
+        '200':
+          description: Server API information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+  /me:
+    get:
+      operationId: getCurrentUser
+      summary: Jupyter Server Get current user
+      description: Returns identity information for the authenticated user.
+      tags:
+      - General
+      responses:
+        '200':
+          description: Identity model for the current user.
+  /status:
+    get:
+      operationId: getServerStatus
+      summary: Jupyter Server Get server status
+      description: Returns the current server activity, including connections, kernels, and last activity timestamp.
+      tags:
+      - General
+      responses:
+        '200':
+          description: Server activity model.
+  /spec.yaml:
+    get:
+      operationId: getApiSpec
+      summary: Jupyter Server Get API specification
+      description: Returns the OpenAPI specification document served by the Jupyter Server.
+      tags:
+      - General
+      responses:
+        '200':
+          description: OpenAPI specification document.
+          content:
+            application/yaml:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html

@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints Config API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: Config
+  description: Server configuration sections.
+paths:
+  /config/{section_name}:
+    get:
+      operationId: getConfig
+      summary: Jupyter Server Get config section
+      description: Retrieves the configuration data for a named section.
+      tags:
+      - Config
+      parameters:
+      - name: section_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Configuration data for the section.
+    patch:
+      operationId: updateConfig
+      summary: Jupyter Server Update config section
+      description: Updates the configuration data for a named section.
+      tags:
+      - Config
+      parameters:
+      - name: section_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updated configuration data.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html

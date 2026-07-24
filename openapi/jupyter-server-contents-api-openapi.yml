@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints Contents API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: Contents
+  description: Notebook and file management operations.
+paths:
+  /contents/{path}:
+    get:
+      operationId: getContents
+      summary: Jupyter Server Get contents
+      description: Retrieves a file or directory at the given path.
+      tags:
+      - Contents
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - file
+          - directory
+          - notebook
+      - name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - text
+          - base64
+      - name: content
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Contents model for the requested path.
+    post:
+      operationId: createContents
+      summary: Jupyter Server Create contents
+      description: Creates a new file or directory at the given path.
+      tags:
+      - Contents
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Contents model for the newly created item.
+    patch:
+      operationId: renameContents
+      summary: Jupyter Server Rename contents
+      description: Renames or moves a file or directory at the given path.
+      tags:
+      - Contents
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contents model for the renamed item.
+    put:
+      operationId: saveContents
+      summary: Jupyter Server Save contents
+      description: Saves or uploads a file or notebook to the given path.
+      tags:
+      - Contents
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contents model for the saved item.
+        '201':
+          description: Newly created contents model.
+    delete:
+      operationId: deleteContents
+      summary: Jupyter Server Delete contents
+      description: Deletes a file or directory at the given path.
+      tags:
+      - Contents
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Contents deleted.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html

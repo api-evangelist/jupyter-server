@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints Kernelspecs API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: Kernelspecs
+  description: Available kernel specifications.
+paths:
+  /kernelspecs:
+    get:
+      operationId: listKernelspecs
+      summary: Jupyter Server List kernel specifications
+      description: Returns the available kernel specifications.
+      tags:
+      - Kernelspecs
+      responses:
+        '200':
+          description: Kernelspecs object including the default kernel.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html

@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints Sessions API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: Sessions
+  description: Notebook-kernel session management.
+paths:
+  /sessions:
+    get:
+      operationId: listSessions
+      summary: Jupyter Server List sessions
+      description: Returns the list of running sessions.
+      tags:
+      - Sessions
+      responses:
+        '200':
+          description: List of session objects.
+    post:
+      operationId: createSession
+      summary: Jupyter Server Create session
+      description: Creates a new session, optionally starting a new kernel.
+      tags:
+      - Sessions
+      responses:
+        '201':
+          description: Newly created session object.
+  /sessions/{session}:
+    get:
+      operationId: getSession
+      summary: Jupyter Server Get session
+      description: Retrieves the session by ID.
+      tags:
+      - Sessions
+      parameters:
+      - name: session
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Session object.
+    patch:
+      operationId: updateSession
+      summary: Jupyter Server Update session
+      description: Updates the session, for example to change the path or kernel.
+      tags:
+      - Sessions
+      parameters:
+      - name: session
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updated session object.
+    delete:
+      operationId: deleteSession
+      summary: Jupyter Server Delete session
+      description: Deletes the session and shuts down its kernel.
+      tags:
+      - Sessions
+      parameters:
+      - name: session
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Session deleted.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html

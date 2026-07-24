@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Jupyter Server REST Checkpoints API
+  description: Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.
+  version: 2.14.0
+  license:
+    name: BSD-3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  contact:
+    name: Jupyter Project
+    url: https://jupyter-server.readthedocs.io
+    email: jupyter@googlegroups.com
+servers:
+- url: http://localhost:8888/api
+  description: Local Jupyter Server
+security:
+- token: []
+tags:
+- name: Checkpoints
+  description: File checkpoint (snapshot) management.
+paths:
+  /contents/{path}/checkpoints:
+    get:
+      operationId: listCheckpoints
+      summary: Jupyter Server List checkpoints
+      description: Returns the list of checkpoints for a file.
+      tags:
+      - Checkpoints
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of checkpoint objects.
+    post:
+      operationId: createCheckpoint
+      summary: Jupyter Server Create checkpoint
+      description: Creates a new checkpoint for the file at path.
+      tags:
+      - Checkpoints
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Newly created checkpoint object.
+  /contents/{path}/checkpoints/{checkpoint_id}:
+    post:
+      operationId: restoreCheckpoint
+      summary: Jupyter Server Restore checkpoint
+      description: Restores the file from the named checkpoint.
+      tags:
+      - Checkpoints
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: checkpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Checkpoint restored.
+    delete:
+      operationId: deleteCheckpoint
+      summary: Jupyter Server Delete checkpoint
+      description: Deletes the checkpoint with the given ID.
+      tags:
+      - Checkpoints
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: checkpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Checkpoint deleted.
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Token-based authentication. Use the form: Authorization: token <token>'
+    xsrf:
+      type: apiKey
+      in: header
+      name: X-XSRFToken
+      description: XSRF token required for browser-based requests.
+externalDocs:
+  description: Jupyter Server REST API documentation
+  url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
