@@ -5,7 +5,20 @@ description: >-
   provides the core REST API for managing kernels, sessions, contents, terminals, and configuration, and it hosts the
   WebSocket endpoints used to communicate with kernels via the Jupyter messaging protocol.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/jupyter-server.png
 tags:
   - Compute
   - Interactive Computing
@@ -18,36 +31,198 @@ created: '2025-02-06'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: jupyter-server:jupyter-server-rest-api
-    name: Jupyter Server REST API
-    description: >-
-      Core REST API for Jupyter Server, providing endpoints for managing kernels, sessions, contents (notebooks and
-      files), terminals, kernel specifications, configuration, and server status.
-    humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
-    baseURL: http://localhost:8888/api
-    tags:
-      - Contents
-      - Kernels
-      - REST API
-      - Sessions
-      - Terminals
-    properties:
-      - type: Documentation
-        url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
-      - type: Repository
-        url: https://github.com/jupyter-server/jupyter_server
-      - type: ChangeLog
-        url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
-      - type: OpenAPI
-        url: openapi/jupyter-server-rest-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/jupyter-server-contents-model.json
-      - type: JSONSchema
-        url: json-schema/jupyter-server-kernel.json
-      - type: JSONSchema
-        url: json-schema/jupyter-server-session.json
-      - type: JSONLDContext
-        url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-checkpoints-api
+  name: Jupyter Server Checkpoints API
+  description: File checkpoint (snapshot) management.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Checkpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-checkpoints-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-config-api
+  name: Jupyter Server Config API
+  description: Server configuration sections.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Config
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-config-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-contents-api
+  name: Jupyter Server Contents API
+  description: Notebook and file management operations.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Contents
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-contents-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-general-api
+  name: Jupyter Server General API
+  description: Server information, identity, and status.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - General
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-general-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-kernels-api
+  name: Jupyter Server Kernels API
+  description: Kernel lifecycle management.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Kernels
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-kernels-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-kernelspecs-api
+  name: Jupyter Server Kernelspecs API
+  description: Available kernel specifications.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Kernelspecs
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-kernelspecs-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-sessions-api
+  name: Jupyter Server Sessions API
+  description: Notebook-kernel session management.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
+- aid: jupyter-server:jupyter-server-terminals-api
+  name: Jupyter Server Terminals API
+  description: Terminal session management.
+  humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  baseURL: http://localhost:8888/api
+  tags:
+  - Terminals
+  properties:
+  - type: OpenAPI
+    url: openapi/jupyter-server-terminals-api-openapi.yml
+  - type: Documentation
+    url: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
+  - type: Repository
+    url: https://github.com/jupyter-server/jupyter_server
+  - type: ChangeLog
+    url: https://github.com/jupyter-server/jupyter_server/blob/main/CHANGELOG.md
+  - type: JSONSchema
+    url: json-schema/jupyter-server-contents-model.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-kernel.json
+  - type: JSONSchema
+    url: json-schema/jupyter-server-session.json
+  - type: JSONLDContext
+    url: json-ld/jupyter-server-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/jupyter-server-agentic-access.yml
