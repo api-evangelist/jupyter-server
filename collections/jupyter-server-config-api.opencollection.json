@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jupyter Server REST Checkpoints Config API",
+    "version": "2.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server Get config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/config/:section_name",
+            "params": [
+              {
+                "name": "section_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration data for a named section."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Update config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8888/api/config/:section_name",
+            "params": [
+              {
+                "name": "section_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the configuration data for a named section."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

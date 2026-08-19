@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jupyter Server REST Checkpoints Sessions API",
+    "version": "2.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/sessions"
+          },
+          "docs": "Returns the list of running sessions."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Create session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/sessions"
+          },
+          "docs": "Creates a new session, optionally starting a new kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the session by ID."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Update session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the session, for example to change the path or kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Delete session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/sessions/:session",
+            "params": [
+              {
+                "name": "session",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the session and shuts down its kernel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

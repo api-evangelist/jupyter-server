@@ -1,0 +1,117 @@
+{
+  "item": [
+    {
+      "id": "da3fed41-effe-4ee2-89f0-17371b239bfa",
+      "name": "Kernelspecs",
+      "description": {
+        "content": "Available kernel specifications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8660c7c5-04a7-4f24-854f-d60b59524357",
+          "name": "Jupyter Server List kernel specifications",
+          "request": {
+            "name": "Jupyter Server List kernel specifications",
+            "description": {
+              "content": "Returns the available kernel specifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kernelspecs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34d07847-de6d-4b59-9cbe-85d911a558e0",
+              "name": "Kernelspecs object including the default kernel.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kernelspecs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8888/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0303e9d0-941d-4dd2-94ab-39d5dcef6a6d",
+    "name": "Jupyter Server REST Checkpoints Kernelspecs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Core REST API for Jupyter Server, the backend that powers Jupyter Notebook, JupyterLab, and other Jupyter web applications. Provides endpoints for managing kernels, sessions, contents (notebooks and files), terminals, kernel specifications, configuration, and server status.\n\nContact Support:\n Name: Jupyter Project\n Email: jupyter@googlegroups.com",
+      "type": "text/plain"
+    }
+  }
+}

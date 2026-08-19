@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jupyter Server REST Checkpoints General API",
+    "version": "2.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server Get API info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/"
+          },
+          "docs": "Returns the API version and other server information."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/me"
+          },
+          "docs": "Returns identity information for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get server status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/status"
+          },
+          "docs": "Returns the current server activity, including connections, kernels, and last activity timestamp."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get API specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/spec.yaml"
+          },
+          "docs": "Returns the OpenAPI specification document served by the Jupyter Server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

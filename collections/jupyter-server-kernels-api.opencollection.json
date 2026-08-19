@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jupyter Server REST Checkpoints Kernels API",
+    "version": "2.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kernels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Jupyter Server List kernels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/kernels"
+          },
+          "docs": "Returns the list of running kernels."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Start kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels"
+          },
+          "docs": "Starts a new kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Get kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8888/api/kernels/:kernel_id",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the kernel model by ID."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Shutdown kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8888/api/kernels/:kernel_id",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Shuts down the kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Interrupt kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels/:kernel_id/interrupt",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Sends an interrupt signal to the kernel."
+        },
+        {
+          "info": {
+            "name": "Jupyter Server Restart kernel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/api/kernels/:kernel_id/restart",
+            "params": [
+              {
+                "name": "kernel_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restarts the kernel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
