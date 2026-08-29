@@ -5,6 +5,19 @@ description: >-
   provides the core REST API for managing kernels, sessions, contents, terminals, and configuration, and it hosts the
   WebSocket endpoints used to communicate with kernels via the Jupyter messaging protocol.
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: BSD-3-Clause
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
