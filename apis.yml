@@ -230,6 +230,8 @@ apis:
   humanURL: https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html
   baseURL: http://localhost:8888/api
   tags:
+  - Terminal
+  tags_raw:
   - Terminals
   properties:
   - type: OpenAPI
