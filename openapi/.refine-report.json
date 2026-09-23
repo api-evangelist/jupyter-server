@@ -1,14 +1,7 @@
 {
   "provider": "jupyter-server",
   "sources": [
-    "jupyter-server-checkpoints-api-openapi.yml",
-    "jupyter-server-config-api-openapi.yml",
-    "jupyter-server-contents-api-openapi.yml",
-    "jupyter-server-general-api-openapi.yml",
-    "jupyter-server-kernels-api-openapi.yml",
-    "jupyter-server-kernelspecs-api-openapi.yml",
-    "jupyter-server-sessions-api-openapi.yml",
-    "jupyter-server-terminals-api-openapi.yml"
+    "_original/jupyter-server-rest-api-openapi.yml"
   ],
   "outputs": [
     "jupyter-server-checkpoints-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "jupyter-server-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "jupyter-server-checkpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-contents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-general-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-kernels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-kernelspecs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jupyter-server-terminals-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
